@@ -4,5 +4,37 @@
 4) Create user story and control flow
 
 
+Pre-work:
+    Team--create python environment
+    Team--delegate objects creation files
 
-
+1. Riding team
+    Attributes
+        Has Horse name
+        Has Rider name
+        Stretch: Equipment
+        Average time
+        Placement record
+    Many-to-many
+        Riding tam has many events through registration
+        Riding team has many skiers through registration
+2. Skier
+    Attribute
+        Record
+        Average time
+        Name
+    Many-to-many
+        Skier has an horse through a registration
+        Skier has an event through registration
+3. Event
+    Attribute
+        Capacity
+        Location
+    One-to-Many
+        An event has many skiers through a registration
+        An event has many riding teams through  registration
+        An event has a fee through a registration
+4. Registration
+    Many-to-Many
+        A registration has a skier and riding team 
+        A registration has an event
