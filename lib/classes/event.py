@@ -34,6 +34,9 @@ class Event:
         else:
             TypeError('Name must be a string.')
 
+# return number of attendees
+
+# 
 
 
 # return a list events happening and requirements needed to enter
