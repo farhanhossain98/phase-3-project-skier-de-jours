@@ -37,20 +37,10 @@ class RidingTeam:
         else:
             TypeError('Name must be a string.')
         
-    
 
-
-
-
-
-
-
-
-
-
-    from classes.event import Event
-    # from classes.registration import Registration
-    # from classes.skier import Skier
+from classes.event import Event
+from classes.registration import Registration
+from classes.skier import Skier
 
 
 

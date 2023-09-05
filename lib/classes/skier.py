@@ -17,6 +17,6 @@ class Skier:
         else:
             raise Exception("Name must be greater than 0 characters.")
 
-    from classes.event import Event
-    from classes.registration import Registration
-    from classes.riding_team import RidingTeam
+from classes.event import Event
+from classes.registration import Registration
+from classes.riding_team import RidingTeam

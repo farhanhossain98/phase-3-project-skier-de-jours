@@ -35,16 +35,9 @@ class Event:
             TypeError('Name must be a string.')
 
 # return number of attendees
-
-
-
-
 # return a list events happening and requirements needed to enter
 # return a list of participants 
 
-
-
-# 
-    # from classes.registration import Registration
-    # from classes.riding_team import RidingTeam
-    # from classes.skier import Skier
+from classes.registration import Registration
+from classes.riding_team import RidingTeam
+from classes.skier import Skier

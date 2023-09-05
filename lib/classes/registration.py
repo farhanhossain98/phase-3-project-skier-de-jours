@@ -41,6 +41,6 @@ class Registration:
         else:
             raise TypeError('Event must be of the Event class')
         
-    from classes.event import Event
-    from classes.registration import Registration
-    from classes.skier import Skier
+from classes.event import Event
+from classes.riding_team import RidingTeam
+from classes.skier import Skier
