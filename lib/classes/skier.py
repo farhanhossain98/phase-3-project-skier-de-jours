@@ -12,7 +12,10 @@ class Skier:
     
     @name.setter
     def name(self, new_name):
-        pass
+        if type(new_name) is str and len(new_name) > 0:
+            self._name = new_name
+        else:
+            raise Exception("Name must be greater than 0 characters.")
 
     from classes.event import Event
     from classes.registration import Registration
