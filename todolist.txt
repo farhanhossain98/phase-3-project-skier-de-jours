@@ -16,7 +16,7 @@ Pre-work:
         Average time
         Placement record
     Many-to-many
-        Riding tam has many events through registration
+        Riding team has many events through registration
         Riding team has many skiers through registration
 2. Skier
     Attribute
