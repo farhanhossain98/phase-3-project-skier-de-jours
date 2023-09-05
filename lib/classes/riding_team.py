@@ -38,6 +38,23 @@ class RidingTeam:
             TypeError('Name must be a string.')
         
 
+    #A riding team has many events through registration
+    #Returns a list of events that the riding team is participating in
+    def get_events(self):
+        pass
+
+    #A riding team has their event results through each registration
+    #Returns a list of finishing times for the rider through their events which is accesssed by registration
+    def get_results(self):
+        pass
+
+    #avg time is a non-descript statistic
+    def average_speed(self):
+        
+        pass
+
+
+
 from classes.event import Event
 from classes.registration import Registration
 from classes.skier import Skier

@@ -41,6 +41,31 @@ class Registration:
         else:
             raise TypeError('Event must be of the Event class')
         
+    
+    def add_category(self, category):
+        pass
+
+
+    def add_raw_time(self, raw_time):
+        pass
+
+    def add_penalty(self, penalty):
+        pass
+
+    
+    @property
+    def final_time(self, raw_time, penalty):
+        return self.final_time
+
+    @final_time.setter
+    def final_time(self, raw_time, penalty):
+        if not hasattr(self, "final_time"):    
+            self._final_time = raw_time + penalty
+        else:
+            raise Exception("Final time cannot be modified... better luck next year slow poke!")
+
+
+
 from classes.event import Event
 from classes.riding_team import RidingTeam
 from classes.skier import Skier

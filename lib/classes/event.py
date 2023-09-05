@@ -34,7 +34,15 @@ class Event:
         else:
             TypeError('Name must be a string.')
 
-# return number of attendees
+    #Able to add finishing stats for each event instance
+    def add_results(self, result):
+        pass
+
+
+# return all racingTeams and Skiers in this event
+def get_results(self):
+    
+    pass
 # return a list events happening and requirements needed to enter
 # return a list of participants 
 
