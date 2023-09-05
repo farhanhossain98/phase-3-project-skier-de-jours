@@ -1,11 +1,7 @@
-farhan testing git
-testing a change
-
-SO MANY CHANGES!!!!!
-farhan
-hiroki is so cool
-tess is amazing
-hello 
+1) FH, HK, TM - Define object and relationships
+2) FH, HK, TM - Create project shell and run basic python input/outputs
+3) Create SQL table queries and Object Relational Mapping
+4) Create user story and control flow
 
 
 
