@@ -36,7 +36,7 @@ class Event:
 
 # return number of attendees
 
-# 
+
 
 
 # return a list events happening and requirements needed to enter
