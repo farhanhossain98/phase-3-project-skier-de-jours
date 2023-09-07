@@ -113,7 +113,7 @@ class TestEvent:
         registration_4 = Registration(riding_team2, skier_4, event)
         
         assert len(set(event.skiers())) == len(event.skiers())
-        assert len(event.skiers()) == 2
+        assert len(event.skiers()) == 4
 
     def test_has_many_riding_teams(self):
         """Event has many riding_teams."""

@@ -84,9 +84,9 @@ class TestRidingTeam:
         registration_3 = Registration(riding_team1, skier_2, steamboat_springs)
 
         assert len(riding_team1.registrations()) == 2
-        assert not registration_3 in riding_team2.registrations()
+        assert registration_2 in riding_team2.registrations()
+        assert registration_3 in riding_team1.registrations()
         assert registration_1 in riding_team1.registrations()
-        assert registration_2 in riding_team1.registrations()
 
     def test_registrations_of_type_registration(self):
         """riding_team registrations are of type Registration"""
@@ -122,8 +122,8 @@ class TestRidingTeam:
         riding_team = RidingTeam("Bullet", "Doug")
         skier = Skier("Michael")
         
-        riding_team.create_registration(riding_team, skier, event)
-        riding_team.create_registration(riding_team, skier, event)
+        riding_team.create_registration(skier, event)
+        riding_team.create_registration(skier, event)
 
         assert len(riding_team.registrations()) == 2
         assert event in riding_team.events()

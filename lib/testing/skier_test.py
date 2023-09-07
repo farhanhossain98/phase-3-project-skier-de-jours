@@ -103,8 +103,8 @@ class TestSkier:
         event = Event(9000, "Canturbery Park")
         riding_team = RidingTeam("Bullet", "Doug")
         skier = Skier("Michael")
-        skier.create_registration(riding_team, skier, event)
-        skier.create_registration(riding_team, skier, event)
+        skier.create_registration(riding_team, event)
+        skier.create_registration(riding_team, event)
 
         assert len(skier.registrations()) == 2
         assert event in skier.events()

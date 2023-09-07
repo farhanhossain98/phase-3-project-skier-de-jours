@@ -46,16 +46,33 @@ class Registration:
         category_options = []
         pass
 
-
-    def add_raw_time(self, raw_time):
-        pass
-
-    def add_penalty(self, penalty):
-        pass
-
     
     @property
-    def final_time(self, raw_time, penalty):
+    def raw_time(self):
+        return self._raw_time
+    
+    @raw_time.setter
+    def raw_time(self, raw_time):
+        if not hasattr(self, 'raw_time'):
+            self._raw_time = raw_time
+        else:
+            raise Exception('Raw time can not be changed. We will be adding penalty time to it for final time.')
+    
+
+    @property
+    def penalty(self):
+        return self._penalty
+    
+    @penalty.setter
+    def penalty(self, penalty):
+        if type(penalty) is int and penalty %10 == 0: 
+            self._penalty = penalty
+        else:
+            raise Exception('Penalty must be an increment of 10.')
+    
+
+    @property
+    def final_time(self):
         return self.final_time
 
     @final_time.setter
@@ -64,6 +81,7 @@ class Registration:
             self._final_time = raw_time + penalty
         else:
             raise Exception("Final time cannot be modified... better luck next year slow poke!")
+        
 
 
 

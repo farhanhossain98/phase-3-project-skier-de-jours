@@ -29,11 +29,21 @@ class Skier:
             raise Exception('Registration must be of Registration class.')
 
 
+    def registrations(self):
+        return [ registration for registration in Registration.all if 
+        registration.skier is self ]
+
     def events(self):
-        return [event for event in Event.all if event.skier is self]
+        return list (set ([registration.event for registration in self.registrations() ]))
     
-    def skiers_registered(self):
-        return list (set ( [event.skier for event in self.events()]))
+
+    def create_registration(self,riding_team, event):
+        return Registration(
+            skier = self,
+            event = event,
+            riding_team = riding_team
+        )
+    
 
 
 from classes.registration import Registration
