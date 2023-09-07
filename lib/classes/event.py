@@ -31,15 +31,26 @@ class Event:
         else:
             raise Exception("Location must be a string, greater than 0 characters long, and cannot be re-assigned.")
 
+    
+    def registrations(self):
+        return [registration for registration in Registration.all if registration.event == self]
+
+    
+    def skiers(self):
+        return [registration.skier for registration in Registration.all if registration.event == self]
+    
+    def riding_teams(self):
+        return [registration.riding_teams for registration in Registration.all if registration.event == self]
+
     #Able to add finishing stats for each event instance
     def add_results(self, result):
         pass
 
 
-# return all racingTeams and Skiers in this event
-def get_results(self):
+    # return all racingTeams and Skiers in this event
+    def get_results(self):
     
-    pass
+        pass
 # return a list events happening and requirements needed to enter
 # return a list of participants 
 
