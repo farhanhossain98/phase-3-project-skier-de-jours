@@ -43,6 +43,7 @@ class Registration:
         
     
     def add_category(self, category):
+        category_options = []
         pass
 
 
