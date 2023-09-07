@@ -2,7 +2,7 @@
 2) FH, HK, TM - Create project shell and run basic python input/outputs
 3) Create SQL table queries and Object Relational Mapping
 4) Create user story and control flow
-
+5) added for test
 
 Pre-work:
     Team--create python environment
