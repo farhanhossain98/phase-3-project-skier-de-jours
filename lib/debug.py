@@ -5,6 +5,8 @@ from classes.event import Event
 from classes.registration import Registration
 from classes.skier import Skier
 from classes.riding_team import RidingTeam
+from classes import CONN, CURSOR
+
 
 if __name__ == '__main__':
     print('in debug file')
