@@ -1,10 +1,59 @@
-class Skier:
+from classes.__init__ import CONN, CURSOR
 
-    all = []
+class Skier:
+    # all = []
 
     def __init__(self, name):
         self.name = name
-        Skier.all.append(self)
+        # Skier.all.append(self)
+
+    @classmethod
+    def create_table(cls):
+        sql = """
+            CREATE TABLE IF NOT EXIST skiers
+                (id INTEGER PRIMARY KEY,
+                 name TEXT,
+                )
+        """
+        CURSOR.execute(sql)
+        CONN.commit()
+    
+    @classmethod
+    def drop_table(cls):
+        sql = """
+            DROP TABLE IF NOT EXIST skiers
+        """
+        CURSOR.execute(sql)
+        CONN.commit()
+    
+    @classmethod
+    def all(cls):
+        sql = """
+            SELECT * FROM skiers
+        """
+        CURSOR.execute(sql)
+        CONN.commit() 
+        pass
+    
+    def save(self):
+        sql = """
+            INSERT INTO skiers (name) 
+            VALUE (?)
+        """
+        CURSOR.execute(sql, self.name)
+        CONN.commit()
+        self.id = CURSOR.lastrowid
+    
+    @classmethod
+    def create(cls,name):
+        skier = cls(name)
+        skier.save()
+        return skier
+    
+
+    @classmethod
+    def say_hello ( cls ) :
+        print( "Hello!!!" )
 
     @property
     def name(self):
@@ -17,6 +66,7 @@ class Skier:
         else:
             raise Exception("Name must be of type string class and between 0-15 characters.")
 
+    
     @property
     def registration(self):
         return self._registration
