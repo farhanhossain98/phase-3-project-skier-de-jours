@@ -14,10 +14,10 @@ class Event:
     @capacity.setter
     # attendee < capacity 
     def capacity(self, capacity):
-        if type(capacity) is int:
+        if type(capacity) is int and not hasattr(self, "capacity"):
             self._capacity = capacity
         else: 
-            TypeError("Capacity has to be an integer.")
+            raise Exception("Capacity has to be an integer.")
 
     @property
     def location(self):
