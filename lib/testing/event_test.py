@@ -33,7 +33,7 @@ class TestEvent:
         assert leadville.location == "Leadville"
 
     def test_location_is_string(self):
-        """Event is initialized with a location of type str"""
+        ""git "Event is initialized with a location of type str"""
         leadville = Event(1500, "Leadville")
         assert isinstance(leadville.location, str)
 

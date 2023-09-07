@@ -25,14 +25,11 @@ class Event:
     
     @location.setter
     # states will have elements and if our location requirements are met by the state it is ok to hold an event 
-    def location(self, name):
-        if type(name) is str:
-            if len(name) > 0:
-                self._location = name
-            else:
-                raise ValueError('Name must be more than 0 characters long.')
+    def location(self, location):
+        if isinstance(location, str) and len(location)>0 and not hasattr(self, "location"):
+            self._location = location
         else:
-            TypeError('Name must be a string.')
+            raise Exception("Location must be a string, greater than 0 characters long, and cannot be re-assigned.")
 
     #Able to add finishing stats for each event instance
     def add_results(self, result):
