@@ -64,7 +64,7 @@ class TestRidingTeam:
     def test_riding_team_rider_name_length(self):
         """riding_team rider_name is between 1 and 15 characters"""
         riding_team = RidingTeam("Bullseye", "Farhan")
-        assert len(riding_team.rider_name) == 8
+        assert len(riding_team.rider_name) == 6
 
         with pytest.raises(Exception):
             riding_team.rider_name = "NameLongerThan15Characters"

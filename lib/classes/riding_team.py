@@ -13,14 +13,14 @@ class RidingTeam:
         return self._horse_name
 
     @horse_name.setter
-    def horse_name(self, name):
-        if type(name) is str:
-            if len(name) > 0:
-                self._horse_name = name
+    def horse_name(self, horse_name):
+        if type(horse_name) == str:
+            if 1 <= len(horse_name) <= 15:
+                self._horse_name = horse_name
             else:
-                raise ValueError('Name must be more than 0 characters long.')
+                raise Exception('Name must be more than 0 characters long.')
         else:
-            TypeError('Name must be a string.')
+            raise Exception('Name must be a string.')
         
 
     @property
@@ -28,16 +28,18 @@ class RidingTeam:
         return self._rider_name
     
     @rider_name.setter
-    def rider_name(self, name):
-        if type(name) is str:
-            if len(name) > 0:
-                self._rider_name = name
+    def rider_name(self, rider_name):
+        if type(rider_name) is str:
+            if 1 <= len(rider_name) <= 15 :
+                self._rider_name = rider_name
             else:
                 raise ValueError('Name must be more than 0 characters long.')
         else:
-            TypeError('Name must be a string.')
+            raise TypeError('Name must be a string.')
         
 
+    def registration(self):
+        return [registration for registration in Registration.all if registration.riding_team is self]
     #A riding team has many events through registration
     #Returns a list of events that the riding team is participating in
     def get_events(self):
