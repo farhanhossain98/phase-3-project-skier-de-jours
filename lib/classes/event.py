@@ -10,6 +10,9 @@ class Event:
         self.id = id
         # Event.all.append(self)
 
+    def __repr__ ( self ) :
+        return f"{{ 'id': { self.id }, 'location': { self.name }, 'capacity': { self.capacity }}}"
+
     @classmethod
     def create_table(cls):
         sql = "CREATE TABLE IF NOT EXISTS events (id INTEGER PRIMARY KEY, capacity INTEGER, location TEXT)"

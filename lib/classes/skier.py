@@ -109,32 +109,60 @@ class Skier:
             raise Exception( 'Id must be a number greater than 0.' )
 
 
-    @property
-    def registration(self):
-        return self._registration
+    # @property
+    # def registration(self):
+    #     return self._registration
     
-    @registration.setter
-    def registration(self, registration):
-        if type(registration) is Registration:
-            self._registration = registration
-        else:
-            raise Exception('Registration must be of Registration class.')
+    # @registration.setter
+    # def registration(self, registration):
+    #     if type(registration) is Registration:
+    #         self._registration = registration
+    #     else:
+    #         raise Exception('Registration must be of Registration class.')
 
 
     def registrations(self):
-        return [ registration for registration in Registration.all if 
-        registration.skier is self ]
+        sql = f"""
+            SELECT skiers.name, events.location, riding_teams.rider_name, riding_teams.horse_name  
+            FROM registrations 
+            INNER JOIN skiers on registrations.skier_id = skiers.id
+            INNER JOIN events on registrations.event_id = events.id
+            INNER JOIN riding_teams on registrations.riding_team_id = riding_teams.id
+            WHERE skiers.id = {self.id}
+            """
+        results = CURSOR.execute(sql).fetchall()
+        for row in results:
+            print(f"Registration details for {row[0]}: ")
+            print(f"Event location: {row[1]}, Rider: {row[2]}, Horse: {row[3]} ")
+
+        # return [ registration for registration in Registration.all if 
+        # registration.skier is self ]
 
     def events(self):
-        return list (set ([registration.event for registration in self.registrations() ]))
+        sql = f"""
+            SELECT skiers.name, events.location, events.capacity
+            FROM registrations 
+            INNER JOIN skiers on registrations.skier_id = skiers.id
+            INNER JOIN events on registrations.event_id = events.id
+            WHERE skiers.id = {self.id}
+            """
+        results = CURSOR.execute(sql).fetchall()
+        for result in results:
+            print("Event details: ")
+            print(f"Get ready {result[0]}, your next event will be held in {result[1]} with a crowd capicty of {result[2]}")
+        
+        # return list (set ([registration.event for registration in self.registrations() ]))
     
 
-    def create_registration(self,riding_team, event):
-        return Registration(
-            skier = self,
-            event = event,
-            riding_team = riding_team
-        )
+    def create_registration(self, riding_team_id, event_id):
+        r = Registration.create(riding_team_id, self.id, event_id)
+        print(f"Great job, {self.name}! You just created a registration!")
+        print(r)
+        # return Registration(
+        #     skier = self,
+        #     event = event,
+        #     riding_team = riding_team
+        # )
     
 
 

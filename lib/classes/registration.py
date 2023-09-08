@@ -11,6 +11,9 @@ class Registration:
         self.id = id
         # Registration.all.append(self)
 
+    def __repr__ ( self ) :
+        return f"{{ 'id': { self.id }, 'riding team id': { self.riding_team_id }, 'event id': { self.event_id } 'skier id': { self.skier_id }}}"
+
     @property
     def id(self):
         if self._id is None:

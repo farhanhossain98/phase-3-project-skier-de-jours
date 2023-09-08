@@ -135,15 +135,35 @@ class RidingTeam:
             raise TypeError('Name must be a string.')
         
 
+
     def registrations(self):
-        return [registration for registration in Registration.all if registration.riding_team is self]
+        sql = f"""
+            SELECT riding_teams.rider_name, riding_teams.horse_name, events.location, skiers.name  
+            FROM registrations 
+            INNER JOIN riding_teams on registrations.riding_team_id = riding_teams.id
+            INNER JOIN skiers on registrations.skier_id = skiers.id
+            INNER JOIN events on registrations.event_id = events.id
+            WHERE riding_teams.id = {self.id}
+            """
+        results = CURSOR.execute(sql).fetchall()
+        for row in results:
+            print(f"Registration details for rider: {row[0]} and horse: {row[1]}: ")
+            print(f"Event location: {row[2]}, Skier: {row[3]} ")
+
+        
+        # return [registration for registration in Registration.all if registration.riding_team is self]
     
-    def create_registration(self, skier, event):
-        return Registration(
-            riding_team = self,
-            skier = skier,
-            event = event
-        )
+    
+    def create_registration(self, skier_id, event_id):
+        r = Registration.create(self.id, skier_id, event_id)
+        print(f"Great job, {self.rider_name} and {self.horse_name}! You just created a registration!")
+        print(r)
+        
+        # return Registration(
+        #     riding_team = self,
+        #     skier = skier,
+        #     event = event
+        # )
    
    
     def events(self):
