@@ -1,12 +1,115 @@
+from classes.__init__ import CONN, CURSOR
+
 class Registration:
 
-    all = []
+    # all = []
 
-    def __init__(self, riding_team, skier, event):
-        self.riding_team = riding_team
-        self.skier = skier
-        self.event = event
-        Registration.all.append(self)
+    def __init__(self, riding_team_id, skier_id, event_id, id=None):
+        self.riding_team_id = riding_team_id
+        self.skier_id = skier_id
+        self.event_id = event_id
+        self.id = id
+        # Registration.all.append(self)
+
+    @property
+    def id(self):
+        if self._id is None:
+            return -1
+        else:
+            return self._id 
+    
+    @id.setter
+    def id(self, id):
+        self._id = id
+
+    @property
+    def riding_team_id(self):
+        return self._riding_team_id
+    
+    @riding_team_id.setter
+    def riding_team_id(self, riding_team_id):
+        if isinstance(riding_team_id, int):
+            self._riding_team_id = riding_team_id
+        else:
+            raise Exception("Invalid ID")
+
+    @property
+    def skier_id(self):
+        return self._skier_id
+    
+    @skier_id.setter
+    def skier_id(self, skier_id):
+        if isinstance(skier_id, int):
+            self._skier_id = skier_id
+        else:
+            raise Exception("Invalid ID")
+
+    @property
+    def event_id(self):
+        return self._event_id
+    
+    @event_id.setter
+    def event_id(self, event_id):
+        if isinstance(event_id, int):
+            self._event_id = event_id
+        else:
+            raise Exception("Invalid ID")
+
+
+
+    @classmethod
+    def create_table(cls):
+        sql = "CREATE TABLE IF NOT EXISTS registrations (id INTEGER PRIMARY KEY, riding_team_id INTEGER, skier_id INTEGER, event_id INTEGER)"
+        CURSOR.execute(sql)
+        CONN.commit()
+   
+    @classmethod
+    def drop_table(cls):
+        sql = "DROP TABLE IF EXISTS registrations"
+        CURSOR.execute(sql)
+        CONN.commit()
+
+    @classmethod
+    def print_db_record ( cls, record ) :
+        r = Registration(
+            id = record[0],
+            riding_team_id = record[1],
+            skier_id = record[2],
+            event_id = record[3],
+        )
+        print(f"Riding team ID: {r.riding_team_id} | Skier ID: {r.skier_id} | Event ID: {r.event_id} | Registration ID: {r.id}")
+
+    @classmethod
+    def print_db_records ( cls, records ) :
+        return [Registration.print_db_record( record ) for record in records ]
+
+    @classmethod
+    def get_all(cls):
+        sql = "SELECT * FROM registrations"
+        registrations = CURSOR.execute(sql).fetchall()
+        return Registration.print_db_records(registrations)
+        
+    def save(self):
+        sql = "INSERT INTO registrations (riding_team_id, skier_id, event_id) VALUES (?, ?, ?)"
+        CURSOR.execute(sql, (self.riding_team_id, self.skier_id, self.event_id))
+        CONN.commit()
+        self.id = CURSOR.lastrowid    
+
+    @classmethod
+    def create(cls, riding_team_id, skier_id, event_id):
+        r = Registration(riding_team_id, skier_id, event_id)
+        r.save()
+        return r
+
+    @classmethod
+    def new_from_db ( cls, record ) :
+        return Registration(
+            id = record[0],
+            riding_team_id = record[1],
+            skier_id = record[2],
+            event_id = record[3],
+            )
+        
 
     @property
     def riding_team(self) :

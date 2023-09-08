@@ -2,10 +2,12 @@ from classes.__init__ import CONN, CURSOR
 
 class Skier:
 
+    # all = []
+
     def __init__(self, name, id=None):
         self.name = name
         self.id = id
-
+        # Skier.all.append(self)
     @classmethod
     def create_table(cls):
         sql = "CREATE TABLE IF NOT EXISTS skiers (id INTEGER PRIMARY KEY, name TEXT)"
@@ -97,10 +99,10 @@ class Skier:
     @classmethod
     def find_by_id ( cls, id ) :
         if type( id ) is int and id > 0 :
-            sql = f'SELECT * FROM skier WHERE id = { id }'
+            sql = f'SELECT * FROM skiers WHERE id = { id }'
             skier = CURSOR.execute( sql ).fetchone()
             if skier :
-                return Skier.new_from_db( skier )
+                return Skier.new_from_db( skier ).print_db_record(skier)
             else :
                 return None
         else :
@@ -137,5 +139,4 @@ class Skier:
 
 
 from classes.registration import Registration
-from classes.event import Event
-from classes.riding_team import RidingTeam
+

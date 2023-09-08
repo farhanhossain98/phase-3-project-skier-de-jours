@@ -2,13 +2,13 @@ from classes.__init__ import CONN, CURSOR
 
 class RidingTeam:
 
-    
+    # all = []    
 
     def __init__(self,horse_name, rider_name, id=None):
         self.horse_name = horse_name
         self.rider_name = rider_name
         self.id = id
-    
+        # RidingTeam.all.append(self)
 
     @classmethod
     def create_table(cls):
@@ -39,10 +39,10 @@ class RidingTeam:
     def get_all(cls):
         sql = "SELECT * FROM riding_teams"
         riding_teams = CURSOR.execute(sql).fetchall()
-        return Skier.print_db_records(riding_teams)
+        return RidingTeam.print_db_records(riding_teams)
         
     def save(self):
-        sql = "INSERT INTO riding_teams (horse_name, rider_name) VALUES (?,?)"
+        sql = "INSERT INTO riding_teams (horse_name, rider_name) VALUES (?, ?)"
         CURSOR.execute(sql, (self.horse_name, self.rider_name))
         CONN.commit()
         self.id = CURSOR.lastrowid    
@@ -60,6 +60,7 @@ class RidingTeam:
             horse_name = record[1],
             rider_name = record[2],
             )
+        
 
     @classmethod
     def find_by_rider(cls, search_name):
@@ -80,16 +81,28 @@ class RidingTeam:
             raise Exception( 'No horse found with that name.' )
     
     @classmethod
-    def find_by_id ( cls, id ) :
-        if type( id ) is int and id > 0 :
-            sql = f'SELECT * FROM riding_teams WHERE id = { id }'
+    def find_by_id ( cls, search_id ):
+        if isinstance(search_id, int) and search_id > 0 :
+            sql = f"SELECT * FROM riding_teams WHERE riding_teams.id = {search_id}"
             rt = CURSOR.execute( sql ).fetchone()
-            if rt :
-                return RidingTeam.new_from_db( rt )
-            else :
-                return None
         else :
-            raise Exception( 'Id must be a number greater than 0.' )
+            raise Exception( 'Id must be an integer and greater than 0.' )
+        if rt :
+            return RidingTeam.new_from_db( rt ).print_db_record(rt)
+        else :
+            print("No riding team is registered under the given ID")
+        
+
+    @property
+    def id(self):
+        if self._id is None:
+            return -1
+        else:
+            return self._id 
+    
+    @id.setter
+    def id(self, id):
+        self._id = id
 
 
     @property
@@ -145,9 +158,9 @@ class RidingTeam:
         
 
 
-from classes.event import Event
+
 from classes.registration import Registration
-from classes.skier import Skier
+
 
 
 
