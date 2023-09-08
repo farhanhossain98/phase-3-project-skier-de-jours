@@ -4,6 +4,12 @@
 
 # Getting started with the database:
 
+<div style="text-align: center;">
+
+![Alt text](image.png)
+
+</div>
+
 ## CLI features:
 
 - Fork and Clone this repo to your local machine
