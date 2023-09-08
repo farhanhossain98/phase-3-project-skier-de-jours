@@ -3,14 +3,139 @@ from classes.registration import Registration
 from classes.skier import Skier
 from classes.riding_team import RidingTeam
 
-# def main_menu ( ) :
+def print_welcome_message():
+    print("Welcome to Skier du Jour: The Premiere Skijoring Database")
 
-    # task = input("What would you like to do? ")
-    # if task == '4' :
-        # get_skiers()
+def print_main_menu() :
+    print("+------------------------------+")
+    print("|           Main Menu          |")
+    print("+------------------------------+")
+    print("| Options :                    |")
+    print("| 1. View Events               |")
+    print("| 2. Skier Information         |")
+    print("| 3. Horse & Rider Information |")
+    print("| 4. Register to Compete       |")
+    print("| e: Exit the program          |")
+    print("+------------------------------+")
+
+def print_view_events_menu():
+    print("+--------------------------------+")
+    print("| Events Menu                    |")
+    print("+--------------------------------+")
+    print("| Options :                      |")
+    print("| 1. Print Event's Registrations |")
+    print("| 2. Print Event's Skiers        |")
+    print("| 3. Print Event's Riding Teams  |")
+    print("| e: Exit Menu                   |")
+    print("+--------------------------------+")
+
+def print_skier_info_menu():
+    print("+--------------------------------+")
+    print("| Skier Information              |")
+    print("+--------------------------------+")
+    print("| Options :                      |")
+    print("| 1. Print Skier's Events        |")
+    print("| 2. Print Skier's Registrations |")
+    print("| e: Exit Menu                   |")
+    print("+--------------------------------+")
+
+def print_riding_team_info_menu():
+    print("+--------------------------------------+")
+    print("| Horse & Rider Information            |")
+    print("+--------------------------------------+")
+    print("| Options :                            |")
+    print("| 1. Print Riding Team's Events        |")
+    print("| 2. Print Riding Team's Registrations |")
+    print("| e: Exit Menu                         |")
+    print("+--------------------------------------+")
+
+def print_registration_menu():
+    print("+-----------------------------+")
+    print("| Register to Compete         |")
+    print("+-----------------------------+")
+    print("| Options :                   |")
+    print("| 1. Sign up as a Skier       |")
+    print("| 2. Sign up as a Riding Team |")
+    print("| 3. Register for an event    |")
+    print("| e: Exit Menu                |")
+    print("+-----------------------------+") 
+
+def view_events_menu():
+    looping = True
+    while(looping):
+        print_view_events_menu()
+        command = input("Input your Command :")
+        command = command.lower()
+
+        #Print event registration
+        if command == "1":
+            event_name = input("Input event to search for:")
+            try:
+                print_event_registrations(event_name)
+            except TypeError:
+                print(f"Could not find event with name: {event_name}")
+        #Print event skiers
+        elif command == "2":
+            event_name = input("Input event to search for:")
+            try:
+                print_event_skiers(event_name)
+            except TypeError:
+                print(f"Could not find event with name: {event_name}")
+        #Print event riding teams
+        elif command == "3":
+            event_name = input("Input event to search for:")
+            try:
+                print_event_riding_teams(event_name)
+            except TypeError:
+                print(f"Could not find event with name: {event_name}")
+
+print_welcome_message()
+print_main_menu()
+print_view_events_menu()
+print_skier_info_menu()
+print_riding_team_info_menu()
+print_registration_menu()
+
+
+def create_new_pet_menu():
+    print("Create a new pet:")
+    
+    name = input("input a name:")
+    breed = input("input a breed:")
+    age = input("input an age:")
+    age = int(age)
+    owner_id = input("Input the id of the owner:")
+    owner_id = int(owner_id)
+
+    pet = Pet(owner_id, name, breed, age)
+
+    print("Here is the generated pet")
+    print_pet_row_header()
+    print_pet_row(pet)
+    print_pet_row_footer()
+
+    print("Would you like to save it to the database?")
+    deciding = True
+    while deciding:
+        decision = input("(Y/N) :")
+        if decision.lower() == "y":
+            pet.save()
+            deciding = False
+            print("Your pet has been created and saved to the database!")
+            print("returning to Modify Menu....\n")
+        elif decision.lower() == "n":
+            print("Pet Creation canceled")
+            print("returning to Modify Menu....\n")
+            deciding = False
+        else:
+            print("Decision must be either 'Y' or 'N'")
+
+
+    # if task == '1' :
+    #     get_skiers()
     # else :
-        # print( 'Please enter valid menu option.')
-        # main_menu()
+    #     print( 'Please enter valid menu option.')
+    #     main_menu()
 
 # def get_skiers ( ) :
    
@@ -19,80 +144,8 @@ from classes.riding_team import RidingTeam
 
 task = input( 'would you like to create and show all skiers. Enter : Y/N  ')
 if task == 'Y':
-    Skier.drop_table()    
-    Skier.create_table()
     farhan = Skier('farhan')
     hiro = Skier('Hiro')
     farhan.save()
     hiro.save()
-    tess = Skier.create("Tess")
-    Skier.get_all()
-    print("Intermission")
-    # Skier.find_by_name("Hiro")
-    # print("Intermission")
-    # Skier.find_by_id(1)
-    
-    #*******************************************
-    
-    RidingTeam.drop_table()    
-    RidingTeam.create_table()
-    r1 = RidingTeam('horse1', 'farhan')
-    r2 = RidingTeam('horse2','Hiro')
-    r1.save()
-    r2.save()
-    r3 = RidingTeam.create("Bullesye", "Tess")
-
-    #*******************************************
-
-    # print("Riding team get_all:")
-    # RidingTeam.get_all()
-    # print("Find by rider: hiro")
-    # RidingTeam.find_by_rider("Hiro")
-    # print("Find by horse: horse1")
-    # RidingTeam.find_by_horse("horse1")
-    # print("Intermission")
-    # RidingTeam.find_by_id(1)
-    
-    #*******************************************
-    
-    Event.drop_table()    
-    Event.create_table()
-    e1 = Event(1500, 'Dallas')
-    e2 = Event(2000,'Philly')
-    e1.save()
-    e2.save()
-    e3 = Event.create(5000, "NYC")
-
-    #*******************************************
-
-    # print("Getting all events: ")
-    # Event.get_all()
-    # print("Find event by location: NYC...")
-    # Event.find_by_location("NYC")
-    # print("Find event by ID: 1...")
-    # Event.find_by_id(1)
-    
-    #*******************************************
-
-    print("Creating Registrations")
-    Registration.drop_table()    
-    Registration.create_table()
-    test = farhan.create_registration(r2.id, e3.id)
-    reg1 = Registration(r1.id,farhan.id, e1.id)
-    reg2 = Registration(r2.id, hiro.id, e2.id)
-    reg3 = Registration(r1.id,farhan.id, e1.id)
-    reg4 = Registration(r2.id,farhan.id, e2.id)
-    reg1.save()
-    reg2.save()
-    reg3 = Registration.create(r3.id, tess.id, e3.id)
-
-    #*******************************************
-
-    print("Get all Registrations")
-    Registration.get_all()
-    print("Get all of farhans registrations:")
-    farhan.registrations()
-    print("Get all of farhans events:")
-    farhan.events()
-    print("Get all of hiro's registrations:")
-    hiro.registrations()
+    Skier.all()
