@@ -19,8 +19,9 @@ from classes.riding_team import RidingTeam
 
 task = input( 'would you like to create and show all skiers. Enter : Y/N  ')
 if task == 'Y':
+    Skier.create_table()
     farhan = Skier('farhan')
     hiro = Skier('Hiro')
     farhan.save()
     hiro.save()
-    Skier.all()
+    Skier.get_all()

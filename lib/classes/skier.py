@@ -1,46 +1,48 @@
 from classes.__init__ import CONN, CURSOR
 
 class Skier:
-    # all = []
 
-    def __init__(self, name):
+    def __init__(self, name, id=None):
         self.name = name
-        # Skier.all.append(self)
+        self.id = id
 
     @classmethod
     def create_table(cls):
-        sql = """
-            CREATE TABLE IF NOT EXIST skiers
-                (id INTEGER PRIMARY KEY,
-                 name TEXT,
-                )
-        """
+        sql = "CREATE TABLE IF NOT EXISTS skiers (id INTEGER PRIMARY KEY, name TEXT)"
         CURSOR.execute(sql)
         CONN.commit()
     
     @classmethod
     def drop_table(cls):
         sql = """
-            DROP TABLE IF NOT EXIST skiers
+            DROP TABLE IF NOT EXISTS skiers
         """
         CURSOR.execute(sql)
         CONN.commit()
     
     @classmethod
-    def all(cls):
-        sql = """
-            SELECT * FROM skiers
-        """
-        CURSOR.execute(sql)
-        CONN.commit() 
-        pass
+    def print_db_record ( cls, record ) :
+        skier = Skier(
+            id = record[0],
+            name = record[1],
+        )
+        print(f"Skier name: {skier.name}, id: {skier.id}")
+
+    @classmethod
+    def print_db_records ( cls, records ) :
+        return [Skier.print_db_record( record ) for record in records ]
+
+
+    @classmethod
+    def get_all(cls):
+        sql = "SELECT * FROM skiers"
+        skiers = CURSOR.execute(sql).fetchall()
+        return Skier.print_db_records(skiers)
+        
     
     def save(self):
-        sql = """
-            INSERT INTO skiers (name) 
-            VALUE (?)
-        """
-        CURSOR.execute(sql, self.name)
+        sql = "INSERT INTO skiers (name) VALUES (?)"
+        CURSOR.execute(sql, (self.name,))
         CONN.commit()
         self.id = CURSOR.lastrowid
     
