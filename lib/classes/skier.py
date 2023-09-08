@@ -123,6 +123,7 @@ class Skier:
 
     def registrations(self):
         sql = f"""
+                
             SELECT skiers.name, events.location, riding_teams.rider_name, riding_teams.horse_name  
             FROM registrations 
             INNER JOIN skiers on registrations.skier_id = skiers.id
@@ -147,8 +148,8 @@ class Skier:
             WHERE skiers.id = {self.id}
             """
         results = CURSOR.execute(sql).fetchall()
+        print("Event details are as follows: ")
         for result in results:
-            print("Event details: ")
             print(f"Get ready {result[0]}, your next event will be held in {result[1]} with a crowd capicty of {result[2]}")
         
         # return list (set ([registration.event for registration in self.registrations() ]))

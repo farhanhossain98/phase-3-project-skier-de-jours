@@ -26,11 +26,14 @@ if task == 'Y':
     farhan.save()
     hiro.save()
     tess = Skier.create("Tess")
-    # Skier.get_all()
+    Skier.get_all()
     print("Intermission")
     # Skier.find_by_name("Hiro")
     # print("Intermission")
     # Skier.find_by_id(1)
+    
+    #*******************************************
+    
     RidingTeam.drop_table()    
     RidingTeam.create_table()
     r1 = RidingTeam('horse1', 'farhan')
@@ -38,13 +41,20 @@ if task == 'Y':
     r1.save()
     r2.save()
     r3 = RidingTeam.create("Bullesye", "Tess")
+
+    #*******************************************
+
+    # print("Riding team get_all:")
     # RidingTeam.get_all()
-    # print("Intermission")
+    # print("Find by rider: hiro")
     # RidingTeam.find_by_rider("Hiro")
-    # print("Intermission")
+    # print("Find by horse: horse1")
     # RidingTeam.find_by_horse("horse1")
     # print("Intermission")
     # RidingTeam.find_by_id(1)
+    
+    #*******************************************
+    
     Event.drop_table()    
     Event.create_table()
     e1 = Event(1500, 'Dallas')
@@ -52,14 +62,19 @@ if task == 'Y':
     e1.save()
     e2.save()
     e3 = Event.create(5000, "NYC")
+
+    #*******************************************
+
+    # print("Getting all events: ")
     # Event.get_all()
-    # print("Intermission")
+    # print("Find event by location: NYC...")
     # Event.find_by_location("NYC")
-    # print("Intermission")
+    # print("Find event by ID: 1...")
     # Event.find_by_id(1)
     
-    print("location data")
-    print("here it goes....")
+    #*******************************************
+
+    print("Creating Registrations")
     Registration.drop_table()    
     Registration.create_table()
     test = farhan.create_registration(r2.id, e3.id)
@@ -70,9 +85,14 @@ if task == 'Y':
     reg1.save()
     reg2.save()
     reg3 = Registration.create(r3.id, tess.id, e3.id)
-    # Registration.get_all()
-    print("Intermission")
-    
+
+    #*******************************************
+
+    print("Get all Registrations")
+    Registration.get_all()
+    print("Get all of farhans registrations:")
     farhan.registrations()
-    # farhan.events()
-    # hiro.registrations()
+    print("Get all of farhans events:")
+    farhan.events()
+    print("Get all of hiro's registrations:")
+    hiro.registrations()
