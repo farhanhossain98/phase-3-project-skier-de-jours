@@ -2,13 +2,13 @@ from classes.__init__ import CONN, CURSOR
 
 class Event:
 
-    # all = []
+    
 
     def __init__(self, capacity, location, id=None):
         self.capacity = capacity 
         self.location = location
         self.id = id
-        # Event.all.append(self)
+        
 
     def __repr__ ( self ) :
         return f"{{ 'id': { self.id }, 'location': { self.name }, 'capacity': { self.capacity }}}"

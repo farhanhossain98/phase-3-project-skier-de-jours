@@ -2,12 +2,12 @@ from classes.__init__ import CONN, CURSOR
 
 class Skier:
 
-    # all = []
+    
 
     def __init__(self, name, id=None):
         self.name = name
         self.id = id
-        # Skier.all.append(self)
+        
     @classmethod
     def create_table(cls):
         sql = "CREATE TABLE IF NOT EXISTS skiers (id INTEGER PRIMARY KEY, name TEXT)"
