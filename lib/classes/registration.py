@@ -2,14 +2,14 @@ from classes.__init__ import CONN, CURSOR
 
 class Registration:
 
-    # all = []
+   
 
     def __init__(self, riding_team_id, skier_id, event_id, id=None):
         self.riding_team_id = riding_team_id
         self.skier_id = skier_id
         self.event_id = event_id
         self.id = id
-        # Registration.all.append(self)
+        
 
     def __repr__ ( self ) :
         return f"{{ 'id': { self.id }, 'riding team id': { self.riding_team_id }, 'event id': { self.event_id } 'skier id': { self.skier_id }}}"

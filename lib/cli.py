@@ -37,6 +37,7 @@ def print_view_events_menu():
     print("| e: Exit Menu                   |")
     print("+--------------------------------+")
 
+
 def print_skier_info_menu():
     print("+--------------------------------+")
     print("| Skier Information              |")
@@ -68,6 +69,10 @@ def print_registration_menu():
     print("| e: Exit Menu                |")
     print("+-----------------------------+") 
 
+        
+
+
+
 def view_events_menu():
     looping = True
     while(looping):
@@ -75,27 +80,145 @@ def view_events_menu():
         command = input("Input your Command :")
         command = command.lower()
 
-        #Print event registration
+        
         if command == "1":
             event_name = input("Input event to search for:")
             try:
-                print_event_registrations(event_name)
+                Event.registrations(event_name)
             except TypeError:
                 print(f"Could not find event with name: {event_name}")
-        #Print event skiers
+        
         elif command == "2":
             event_name = input("Input event to search for:")
             try:
                 print_event_skiers(event_name)
             except TypeError:
                 print(f"Could not find event with name: {event_name}")
-        #Print event riding teams
+       
         elif command == "3":
             event_name = input("Input event to search for:")
             try:
                 print_event_riding_teams(event_name)
             except TypeError:
                 print(f"Could not find event with name: {event_name}")
+
+# def print_event_registrations():
+    # return Event.registrations()
+    # pass
+
+def print_event_skiers():
+    return Event.skiers()
+    pass
+
+def print_event_riding_teams():
+    return Event.riding_teams()
+    pass
+
+
+def view_skier_info():
+    looping = True
+    while(looping):
+        print_skier_info_menu()
+        print("Input Your Command:   ")
+            
+        if command == "1":
+            skier_name = input("Input skier to search for:")
+            try:
+                print_skiers_events(skier_name)
+            except TypeError:
+                print(f"Could not find skier's with name: {skier_name}")
+
+        elif command == "2":
+            skier_name = input("Input skier's to search for:")
+            try:
+                print_skiers_registrations(skier_name)
+            except TypeError:
+                print(f"Could not find skier's with name: {skier_name}")
+
+
+def print_skiers_events():
+    pass
+
+def print_skiers_registrations():
+    pass
+
+
+
+
+
+
+def view_riding_team_info():
+    looping = True
+    while(looping):
+        print_riding_team_info_menu()
+        print("Input Your Command:   ")
+            
+        if command == "1":
+            riding_team = input("Input riding_team to search for:")
+            try:
+                print_riding_teams_events(riding_team)
+            except TypeError:
+                print(f"Could not find riding_team's with name: {riding_team}")
+
+        elif command == "2":
+            riding_team = input("Input riding_team's to search for:")
+            try:
+                print_riding_teams_registrations(riding_team)
+            except TypeError:
+                print(f"Could not find riding_team's with name: {riding_team}")
+
+
+def print_riding_teams_events():
+    pass
+
+def print_riding_teams_registrations():
+    pass
+
+
+
+
+def view_registration_menu():
+    looping = True
+    while(looping):
+        print_registration_menu()
+        command = input("Input your Command :")
+        command = command.lower()
+
+        if command == "1":
+            skier_name = input("Input event to search for:")
+            try:
+                sign_up_skier(skier_name)
+            except TypeError:
+                print(f"Could not find event with name: {skier_name}")
+        
+        elif command == "2":
+            riding_team = input("Input event to search for:")
+            try:
+                sign_up_riding_team(riding_team)
+            except TypeError:
+                print(f"Could not find event with name: {riding_team}")
+        
+        elif command == "3":
+            event_name = input("Input event to search for:")
+            try:
+                register_for_event(event_name)
+            except TypeError:
+                print(f"Could not find event with name: {event_name}")
+
+
+def sign_up_skier():
+    pass
+
+def sign_up_riding_team():
+    pass
+
+def register_for_event():
+    pass
+
+
+
+
+
 
 print_welcome_message()
 print_main_menu()
@@ -105,55 +228,26 @@ print_riding_team_info_menu()
 print_registration_menu()
 
 
-def create_new_pet_menu():
-    print("Create a new pet:")
-    
-    name = input("input a name:")
-    breed = input("input a breed:")
-    age = input("input an age:")
-    age = int(age)
-    owner_id = input("Input the id of the owner:")
-    owner_id = int(owner_id)
+if __name__ == "__main__":
+    print_welcome_message()
+    looping = True
+    while (looping):
+        print_main_menu()
+        command = input("What would you like to do: Input: ")
+        command = command.lower()
 
-    pet = Pet(owner_id, name, breed, age)
-
-    print("Here is the generated pet")
-    print_pet_row_header()
-    print_pet_row(pet)
-    print_pet_row_footer()
-
-    print("Would you like to save it to the database?")
-    deciding = True
-    while deciding:
-        decision = input("(Y/N) :")
-        if decision.lower() == "y":
-            pet.save()
-            deciding = False
-            print("Your pet has been created and saved to the database!")
-            print("returning to Modify Menu....\n")
-        elif decision.lower() == "n":
-            print("Pet Creation canceled")
-            print("returning to Modify Menu....\n")
-            deciding = False
+        if command == '1':
+            view_events_menu()
+        elif command ==  '2':
+            view_skier_info()
+        elif command == '3':
+            view_riding_team_info()
+        elif command == '4':
+            view_registration_menu()
+        elif command == '5':
+            looping = False
+            print( ' Exiting ')
         else:
-            print("Decision must be either 'Y' or 'N'")
+            print( ' Please Enter a valid option. ')
+        
 
-
-    # if task == '1' :
-    #     get_skiers()
-    # else :
-    #     print( 'Please enter valid menu option.')
-    #     main_menu()
-
-# def get_skiers ( ) :
-   
-
-    # main_menu()
-
-# task = input( 'would you like to create and show all skiers. Enter : Y/N  ')
-# if task == 'Y':
-#     farhan = Skier('farhan')
-#     hiro = Skier('Hiro')
-#     farhan.save()
-#     hiro.save()
-#     Skier.all()
