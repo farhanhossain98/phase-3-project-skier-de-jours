@@ -29,7 +29,15 @@ from classes.riding_team import RidingTeam
 
 task = input ( ' would you like to createa and show all riding teams. Enter: Y/N   ')
 if task == 'Y':
+    RidingTeam.drop_table()
     RidingTeam.create_table()
     r1 = RidingTeam('Sugar', 'Tess')
     r1.save()
+    r2 = RidingTeam.create('bullseye','hiroki')
+    r3 = RidingTeam.create('happy','farhan')
     RidingTeam.get_all()
+    print('Line break')
+
+
+    RidingTeam.find_by_rider_name('Tess')
+    RidingTeam.find_by_id('1')

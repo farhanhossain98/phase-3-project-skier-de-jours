@@ -2,13 +2,13 @@ from classes.__init__ import CONN, CURSOR
 
 class RidingTeam:
 
-    # all = []
+    
 
-    def __init__(self,horse_name, rider_name, id = None):
+    def __init__( self, horse_name, rider_name, id = None ):
         self.horse_name = horse_name
         self.rider_name = rider_name
         self.id = id
-        # RidingTeam.all.append(self)
+        
     
     @classmethod
     def create_table(cls):
@@ -18,7 +18,7 @@ class RidingTeam:
     
     @classmethod
     def drop_table(cls):
-        sql = """ DROP TABLE IF EXISTS skiers """
+        sql = " DROP TABLE IF EXISTS riding_teams "
         CURSOR.execute(sql)
         CONN.commit()
 
@@ -27,10 +27,19 @@ class RidingTeam:
         riding_team = RidingTeam(
             id = record [0],
             horse_name = record[1],
-            rider_name = record [2]
+            rider_name = record[2],
         )
-        print(f"Horse Name: {riding_team.horse_name}, {riding_team.rider_name}, {riding_team.id}")
-    
+        print(f"Horse Name: {riding_team.horse_name}, Rider Name: {riding_team.rider_name}, ID: {riding_team.id}")
+
+    @classmethod
+    def print_db_record ( cls, record ):
+        riding_team = RidingTeam(
+            id = record [0],
+            horse_name = record[1],
+            rider_name = record[2],
+        )
+        print(f"Horse Name: {riding_team.horse_name}, Rider Name: {riding_team.rider_name}, ID: {riding_team.id}")
+        
     @classmethod
     def print_db_records ( cls, records ) :
         return [RidingTeam.print_db_record( record ) for record in records ]
@@ -53,7 +62,40 @@ class RidingTeam:
         riding_team.save()
         return riding_team
         
+    @property
+    def id(self):
+        if self._id is None:
+            return -1
+        else:
+            return self._id 
     
+    @id.setter
+    def id(self, id):
+        self._id = id
+
+    def __repr__ ( self ) :
+        return f"{{ 'id': { self.id }, 'horse name': { self.horse_name }, rider name {self.rider_name}}}"
+
+    @classmethod
+    def find_by_rider_name(cls, rider_name):
+        sql = f"SELECT * FROM riding_teams WHERE riding_teams.rider_name LIKE '{rider_name}'"
+        riders = CURSOR.execute(sql).fetchall()
+        if riders:
+            return RidingTeam.print_db_records( riders )
+        else:
+            raise Exception( 'No rider found with that name.' )
+    
+    @classmethod
+    def find_by_id ( cls, id ) :
+        if type( id ) is int and id > 0 :
+            sql = f'SELECT * FROM riding_team WHERE id = { id }'
+            riding_team = CURSOR.execute( sql ).fetchall()
+            if riding_team :
+                return RidingTeam.print_db_records( riding_team )
+            else :
+                return None
+        else :
+            raise Exception( 'Id must be a number greater than 0.' )
 
 
 
