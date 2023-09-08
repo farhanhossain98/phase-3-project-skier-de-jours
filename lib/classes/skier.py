@@ -15,7 +15,7 @@ class Skier:
     @classmethod
     def drop_table(cls):
         sql = """
-            DROP TABLE IF NOT EXISTS skiers
+            DROP TABLE IF EXISTS skiers
         """
         CURSOR.execute(sql)
         CONN.commit()
@@ -26,7 +26,7 @@ class Skier:
             id = record[0],
             name = record[1],
         )
-        print(f"Skier name: {skier.name}, id: {skier.id}")
+        print(f"Skier name: {skier.name} | id: {skier.id}")
 
     @classmethod
     def print_db_records ( cls, records ) :
@@ -51,11 +51,7 @@ class Skier:
         skier = cls(name)
         skier.save()
         return skier
-    
 
-    @classmethod
-    def say_hello ( cls ) :
-        print( "Hello!!!" )
 
     @property
     def name(self):
@@ -68,7 +64,42 @@ class Skier:
         else:
             raise Exception("Name must be of type string class and between 0-15 characters.")
 
+    @property
+    def id(self):
+        if self._id is None:
+            return -1
+        else:
+            return self._id 
     
+    @id.setter
+    def id(self, id):
+        self._id = id
+
+    def __repr__ ( self ) :
+        return f"{{ 'id': { self.id }, 'name': { self.name }}}"
+
+    @classmethod
+    def find_by_name(cls, search_name):
+        sql = f"SELECT * FROM skiers WHERE name LIKE '{search_name}'"
+        skiers = CURSOR.execute(sql).fetchall()
+        if skiers:
+            return Skier.print_db_records( skiers )
+        else :
+            raise Exception( 'No skier found with that name.' )
+    
+    @classmethod
+    def find_by_id ( cls, id ) :
+        if type( id ) is int and id > 0 :
+            sql = f'SELECT * FROM skier WHERE id = { id }'
+            skier = CURSOR.execute( sql ).fetchone()
+            if skier :
+                return Skier.new_from_db( skier )
+            else :
+                return None
+        else :
+            raise Exception( 'Id must be a number greater than 0.' )
+
+
     @property
     def registration(self):
         return self._registration
