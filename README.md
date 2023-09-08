@@ -4,9 +4,33 @@
 
 # Getting started with the database:
 
-<div style="text-align: center;">
+<div style="text-align: center; height:40%; width:40%;">
 
-![Alt text](image.png)
+![Alt text](image-1.png)
+
+</div>
+
+<div style="text-align: center; height:40%; width:40%;">
+
+![Alt text](image-2.png)
+
+</div>
+
+<div style="text-align: center; height:40%; width:40%;">
+
+![Alt text](image-3.png)
+
+</div>
+
+<div style="text-align: center; height:40%; width:40%;">
+
+![Alt text](image-4.png)
+
+</div>
+
+<div style="text-align: center; height:40%; width:40%;">
+
+![Alt text](image-5.png)
 
 </div>
 
