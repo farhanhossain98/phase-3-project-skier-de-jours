@@ -1,12 +1,96 @@
+from classes.__init__ import CONN, CURSOR
+
 class RidingTeam:
 
-    all = []
+    
 
-    def __init__(self,horse_name, rider_name):
+    def __init__(self,horse_name, rider_name, id=None):
         self.horse_name = horse_name
         self.rider_name = rider_name
-        RidingTeam.all.append(self)
+        self.id = id
     
+
+    @classmethod
+    def create_table(cls):
+        sql = "CREATE TABLE IF NOT EXISTS riding_teams (id INTEGER PRIMARY KEY, horse_name TEXT, rider_name TEXT)"
+        CURSOR.execute(sql)
+        CONN.commit()
+   
+    @classmethod
+    def drop_table(cls):
+        sql = "DROP TABLE IF EXISTS riding_teams"
+        CURSOR.execute(sql)
+        CONN.commit()
+
+    @classmethod
+    def print_db_record ( cls, record ) :
+        rt = RidingTeam(
+            id = record[0],
+            horse_name = record[1],
+            rider_name = record[2]
+        )
+        print(f"Rider name: {rt.rider_name} | Horse name: {rt.horse_name} | id: {rt.id}")
+
+    @classmethod
+    def print_db_records ( cls, records ) :
+        return [RidingTeam.print_db_record( record ) for record in records ]
+
+    @classmethod
+    def get_all(cls):
+        sql = "SELECT * FROM riding_teams"
+        riding_teams = CURSOR.execute(sql).fetchall()
+        return Skier.print_db_records(riding_teams)
+        
+    def save(self):
+        sql = "INSERT INTO riding_teams (horse_name, rider_name) VALUES (?,?)"
+        CURSOR.execute(sql, (self.horse_name, self.rider_name))
+        CONN.commit()
+        self.id = CURSOR.lastrowid    
+
+    @classmethod
+    def create(cls, horse_name, rider_name):
+        rt = RidingTeam(horse_name, rider_name)
+        rt.save()
+        return rt
+
+    @classmethod
+    def new_from_db ( cls, record ) :
+        return RidingTeam(
+            id = record[0],
+            horse_name = record[1],
+            rider_name = record[2],
+            )
+
+    @classmethod
+    def find_by_rider(cls, search_name):
+        sql = f"SELECT * FROM riding_teams WHERE riding_teams.rider_name LIKE '{search_name}'"
+        riders = CURSOR.execute(sql).fetchall()
+        if riders:
+            return RidingTeam.print_db_records( riders )
+        else :
+            raise Exception( 'No skier found with that name.' )
+        
+    @classmethod
+    def find_by_horse(cls, search_name):
+        sql = f"SELECT * FROM riding_teams WHERE riding_teams.horse_name LIKE '{search_name}'"
+        riders = CURSOR.execute(sql).fetchall()
+        if riders:
+            return RidingTeam.print_db_records( riders )
+        else :
+            raise Exception( 'No horse found with that name.' )
+    
+    @classmethod
+    def find_by_id ( cls, id ) :
+        if type( id ) is int and id > 0 :
+            sql = f'SELECT * FROM riding_teams WHERE id = { id }'
+            rt = CURSOR.execute( sql ).fetchone()
+            if rt :
+                return RidingTeam.new_from_db( rt )
+            else :
+                return None
+        else :
+            raise Exception( 'Id must be a number greater than 0.' )
+
 
     @property
     def horse_name(self):

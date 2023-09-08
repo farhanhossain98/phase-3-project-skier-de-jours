@@ -88,6 +88,13 @@ class Skier:
             raise Exception( 'No skier found with that name.' )
     
     @classmethod
+    def new_from_db ( cls, record ) :
+        return Skier(
+            id = record[0],
+            name = record[1],
+            )
+    
+    @classmethod
     def find_by_id ( cls, id ) :
         if type( id ) is int and id > 0 :
             sql = f'SELECT * FROM skier WHERE id = { id }'
