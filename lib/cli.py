@@ -18,6 +18,27 @@ def print_main_menu() :
     print("| e: Exit the program          |")
     print("+------------------------------+")
 
+def run_cli():
+    print_welcome_message()
+    print_main_menu()
+    response = input( ' What would you like to do: ' )
+    if response == '1':
+        Skier.drop_table()    
+        Skier.create_table()
+        farhan = Skier('farhan')
+        hiro = Skier('Hiro')
+        farhan.save()
+        hiro.save()
+        tess = Skier.create("Tess")
+        Skier.get_all()
+        print("Intermission")
+
+
+
+
+run_cli()
+
+
 def print_view_events_menu():
     print("+--------------------------------+")
     print("| Events Menu                    |")
@@ -131,21 +152,8 @@ def create_new_pet_menu():
             print("Decision must be either 'Y' or 'N'")
 
 
-    # if task == '1' :
-    #     get_skiers()
-    # else :
-    #     print( 'Please enter valid menu option.')
-    #     main_menu()
 
-# def get_skiers ( ) :
-   
 
-    # main_menu()
 
-task = input( 'would you like to create and show all skiers. Enter : Y/N  ')
-if task == 'Y':
-    farhan = Skier('farhan')
-    hiro = Skier('Hiro')
-    farhan.save()
-    hiro.save()
-    Skier.all()
+
+
