@@ -22,9 +22,9 @@ if task == 'Y':
     tess = Skier.create("Tess")
     Skier.get_all()
     print("Intermission")
-    # Skier.find_by_name("Hiro")
-    # print("Intermission")
-    # Skier.find_by_id(1)
+    Skier.find_by_name("Hiro")
+    print("Intermission")
+    Skier.find_by_id(1)
     
     #*******************************************
     
@@ -38,14 +38,14 @@ if task == 'Y':
 
     #*******************************************
 
-    # print("Riding team get_all:")
-    # RidingTeam.get_all()
-    # print("Find by rider: hiro")
-    # RidingTeam.find_by_rider("Hiro")
-    # print("Find by horse: horse1")
-    # RidingTeam.find_by_horse("horse1")
-    # print("Intermission")
-    # RidingTeam.find_by_id(1)
+    print("Riding team get_all:")
+    RidingTeam.get_all()
+    print("Find by rider: hiro")
+    RidingTeam.find_by_rider("Hiro")
+    print("Find by horse: horse1")
+    RidingTeam.find_by_horse("horse1")
+    print("Intermission")
+    RidingTeam.find_by_id(1)
     
     #*******************************************
     
@@ -58,13 +58,13 @@ if task == 'Y':
     e3 = Event.create(5000, "NYC")
 
     #*******************************************
-
-    # print("Getting all events: ")
-    # Event.get_all()
-    # print("Find event by location: NYC...")
-    # Event.find_by_location("NYC")
-    # print("Find event by ID: 1...")
-    # Event.find_by_id(1)
+# 
+    print("Getting all events: ")
+    Event.get_all()
+    print("Find event by location: NYC...")
+    Event.find_by_location("NYC")
+    print("Find event by ID: 1...")
+    Event.find_by_id(1)
     
     #*******************************************
 

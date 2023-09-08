@@ -2,13 +2,13 @@ from classes.__init__ import CONN, CURSOR
 
 class RidingTeam:
 
-    # all = []    
+       
 
     def __init__(self,horse_name, rider_name, id=None):
         self.horse_name = horse_name
         self.rider_name = rider_name
         self.id = id
-        # RidingTeam.all.append(self)
+        
 
     @classmethod
     def create_table(cls):
