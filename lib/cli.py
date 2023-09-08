@@ -2,6 +2,14 @@ from classes.event import Event
 from classes.registration import Registration
 from classes.skier import Skier
 from classes.riding_team import RidingTeam
+from classes.__init__ import seed_database
+
+
+# db_file = "skijor.db"  # Replace with your database file path
+# seed_file = "lib/classes/skijor_seed_db.sql"     # Replace with your seed SQL file path
+# seed_database(db_file, seed_file)
+
+
 
 def print_welcome_message():
     print("Welcome to Skier du Jour: The Premiere Skijoring Database")
@@ -242,3 +250,4 @@ if __name__ == "__main__":
         else:
             print( ' Please Enter a valid option. ')
         
+
