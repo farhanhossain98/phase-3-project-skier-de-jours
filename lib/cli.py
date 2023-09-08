@@ -17,11 +17,19 @@ from classes.riding_team import RidingTeam
 
     # main_menu()
 
-task = input( 'would you like to create and show all skiers. Enter : Y/N  ')
+# task = input( 'would you like to create and show all skiers. Enter : Y/N  ')
+# if task == 'Y':
+    # Skier.create_table()
+    # farhan = Skier('farhan')
+    # hiro = Skier('Hiro')
+    # farhan.save()
+    # hiro.save()
+    # Skier.get_all()
+
+
+task = input ( ' would you like to createa and show all riding teams. Enter: Y/N   ')
 if task == 'Y':
-    Skier.create_table()
-    farhan = Skier('farhan')
-    hiro = Skier('Hiro')
-    farhan.save()
-    hiro.save()
-    Skier.get_all()
+    RidingTeam.create_table()
+    r1 = RidingTeam('Sugar', 'Tess')
+    r1.save()
+    RidingTeam.get_all()

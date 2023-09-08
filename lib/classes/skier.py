@@ -15,7 +15,7 @@ class Skier:
     @classmethod
     def drop_table(cls):
         sql = """
-            DROP TABLE IF NOT EXISTS skiers
+            DROP TABLE IF EXISTS skiers
         """
         CURSOR.execute(sql)
         CONN.commit()
@@ -53,6 +53,17 @@ class Skier:
         return skier
     
 
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     @classmethod
     def say_hello ( cls ) :
         print( "Hello!!!" )
