@@ -1,12 +1,109 @@
+from classes.__init__ import CONN, CURSOR
+
 class RidingTeam:
 
-    all = []
+    # all = []    
 
-    def __init__(self,horse_name, rider_name):
+    def __init__(self,horse_name, rider_name, id=None):
         self.horse_name = horse_name
         self.rider_name = rider_name
-        RidingTeam.all.append(self)
+        self.id = id
+        # RidingTeam.all.append(self)
+
+    @classmethod
+    def create_table(cls):
+        sql = "CREATE TABLE IF NOT EXISTS riding_teams (id INTEGER PRIMARY KEY, horse_name TEXT, rider_name TEXT)"
+        CURSOR.execute(sql)
+        CONN.commit()
+   
+    @classmethod
+    def drop_table(cls):
+        sql = "DROP TABLE IF EXISTS riding_teams"
+        CURSOR.execute(sql)
+        CONN.commit()
+
+    @classmethod
+    def print_db_record ( cls, record ) :
+        rt = RidingTeam(
+            id = record[0],
+            horse_name = record[1],
+            rider_name = record[2]
+        )
+        print(f"Rider name: {rt.rider_name} | Horse name: {rt.horse_name} | id: {rt.id}")
+
+    @classmethod
+    def print_db_records ( cls, records ) :
+        return [RidingTeam.print_db_record( record ) for record in records ]
+
+    @classmethod
+    def get_all(cls):
+        sql = "SELECT * FROM riding_teams"
+        riding_teams = CURSOR.execute(sql).fetchall()
+        return RidingTeam.print_db_records(riding_teams)
+        
+    def save(self):
+        sql = "INSERT INTO riding_teams (horse_name, rider_name) VALUES (?, ?)"
+        CURSOR.execute(sql, (self.horse_name, self.rider_name))
+        CONN.commit()
+        self.id = CURSOR.lastrowid    
+
+    @classmethod
+    def create(cls, horse_name, rider_name):
+        rt = RidingTeam(horse_name, rider_name)
+        rt.save()
+        return rt
+
+    @classmethod
+    def new_from_db ( cls, record ) :
+        return RidingTeam(
+            id = record[0],
+            horse_name = record[1],
+            rider_name = record[2],
+            )
+        
+
+    @classmethod
+    def find_by_rider(cls, search_name):
+        sql = f"SELECT * FROM riding_teams WHERE riding_teams.rider_name LIKE '{search_name}'"
+        riders = CURSOR.execute(sql).fetchall()
+        if riders:
+            return RidingTeam.print_db_records( riders )
+        else :
+            raise Exception( 'No skier found with that name.' )
+        
+    @classmethod
+    def find_by_horse(cls, search_name):
+        sql = f"SELECT * FROM riding_teams WHERE riding_teams.horse_name LIKE '{search_name}'"
+        riders = CURSOR.execute(sql).fetchall()
+        if riders:
+            return RidingTeam.print_db_records( riders )
+        else :
+            raise Exception( 'No horse found with that name.' )
     
+    @classmethod
+    def find_by_id ( cls, search_id ):
+        if isinstance(search_id, int) and search_id > 0 :
+            sql = f"SELECT * FROM riding_teams WHERE riding_teams.id = {search_id}"
+            rt = CURSOR.execute( sql ).fetchone()
+        else :
+            raise Exception( 'Id must be an integer and greater than 0.' )
+        if rt :
+            return RidingTeam.new_from_db( rt ).print_db_record(rt)
+        else :
+            print("No riding team is registered under the given ID")
+        
+
+    @property
+    def id(self):
+        if self._id is None:
+            return -1
+        else:
+            return self._id 
+    
+    @id.setter
+    def id(self, id):
+        self._id = id
+
 
     @property
     def horse_name(self):
@@ -38,15 +135,35 @@ class RidingTeam:
             raise TypeError('Name must be a string.')
         
 
+
     def registrations(self):
-        return [registration for registration in Registration.all if registration.riding_team is self]
+        sql = f"""
+            SELECT riding_teams.rider_name, riding_teams.horse_name, events.location, skiers.name  
+            FROM registrations 
+            INNER JOIN riding_teams on registrations.riding_team_id = riding_teams.id
+            INNER JOIN skiers on registrations.skier_id = skiers.id
+            INNER JOIN events on registrations.event_id = events.id
+            WHERE riding_teams.id = {self.id}
+            """
+        results = CURSOR.execute(sql).fetchall()
+        for row in results:
+            print(f"Registration details for rider: {row[0]} and horse: {row[1]}: ")
+            print(f"Event location: {row[2]}, Skier: {row[3]} ")
+
+        
+        # return [registration for registration in Registration.all if registration.riding_team is self]
     
-    def create_registration(self, skier, event):
-        return Registration(
-            riding_team = self,
-            skier = skier,
-            event = event
-        )
+    
+    def create_registration(self, skier_id, event_id):
+        r = Registration.create(self.id, skier_id, event_id)
+        print(f"Great job, {self.rider_name} and {self.horse_name}! You just created a registration!")
+        print(r)
+        
+        # return Registration(
+        #     riding_team = self,
+        #     skier = skier,
+        #     event = event
+        # )
    
    
     def events(self):
@@ -61,9 +178,9 @@ class RidingTeam:
         
 
 
-from classes.event import Event
+
 from classes.registration import Registration
-from classes.skier import Skier
+
 
 
 
